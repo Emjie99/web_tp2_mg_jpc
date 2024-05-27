@@ -68,12 +68,3 @@ Démontrez vos compétences en programmation en produisant du code de haute qual
 
 Pour l’interface, respectez les bonnes pratiques d’utilisabilité vues en classe;
 
-### Évaluation :
-
-|  Critères	 individuels | Points |
-|---|---|---|---|---|
-|  Fonctionnalités : |   |   |   |   |
-|  •	Implémentation correcte des fonctionnalités individuelles et globales demandées | /60  |   |   |   |
-| •	Convivialité de l’application  |  /10  |   |   |   |
-
-
