@@ -7,7 +7,7 @@ const PageAccueil = () => {
                 Bienvenue!
             </h1>
             <h2>
-                TP2 Jean-Philippe Cyr et Maxime Gaulin
+                TP2 - Jean-Philippe Cyr et Maxime Gaulin
             </h2>
             <p>
                 Bienvenue à notre page d'accueil. Pour continuer, veuillez vous authentifier.

@@ -8,11 +8,12 @@ const BarreDeNavigation = () => {
     const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
     return (
-        <Navbar bg="light" expand="sm" className="shadow-sm">
+        <Navbar expand="sm" className="bg-body-secondary">
             <Container>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Brand href="/">TP2 - MG JPC</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
+                    <Nav>
                         <Nav.Link as={Link} to="/">Accueil</Nav.Link>
                         {isAuthenticated ? (
                             <>
