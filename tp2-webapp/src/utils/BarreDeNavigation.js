@@ -18,6 +18,7 @@ const BarreDeNavigation = () => {
                         {isAuthenticated ? (
                             <>
                                 <Nav.Link as={Button} onClick={() => logout({ returnTo: window.location.origin })}>Se déconnecter</Nav.Link>
+                                <Nav.Link as={Link} to="/creation-client">Creation de client</Nav.Link>
                             </>
                         ) : (
                             <Nav.Link as={Button} onClick={() => loginWithRedirect()}>Se connecter</Nav.Link>
