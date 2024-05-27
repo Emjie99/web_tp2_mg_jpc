@@ -78,3 +78,21 @@ Pour l’interface, respectez les bonnes pratiques d’utilisabilité vues en cl
 | Qualité globale du code (lisibilité, modularité, indentation, commentaires)\n Qualité et découpage des commits | /30 |
 | Bonus : Implémentation du support multilingue, couverture de tests | /10 |
 | Total | /100 |
+
+La proportion des points attribuée à la qualité globale du code ne pourra pas dépasser la proportion des points atteinte pour les fonctionnalités. Par exemple, si une personne cumule 35 points pour les fonctionnalités (50% de 70 points possibles) elle ne pourra pas avoir plus de 15 points pour la qualité du code (50% de 30 points possibles).
+
+Les propositions des étudiants peuvent être évaluées en entrevue après la remise du travail.
+
+Le non respect des contraintes techniques vous donnera immédiatement la note 0.
+
+### Bonus d’équipe (5 points) :
+
+Sur Git, organisez vos travaux de manière à éviter de faire des commits en parallèle. Structurez votre branche de développement principale de manière à être la plus linéaire possible. Un bonus de 10 % sera accordé à une équipe qui arrive à faire tout son développement sans aucun embranchement (merge).
+
+
+
+# Remise finale : 9 juin à minuit
+
+
+
+
