@@ -75,7 +75,7 @@ Pour l’interface, respectez les bonnes pratiques d’utilisabilité vues en cl
 | Fonctionnalités : |
 | Implémentation correcte des fonctionnalités individuelles et globales demandées |	/60 |
 | Convivialité de l’application |	/10 |
-| Qualité globale du code (lisibilité, modularité, indentation, commentaires)/n Qualité et découpage des commits | /30 |
+| Qualité globale du code (lisibilité, modularité, indentation, commentaires) <br> Qualité et découpage des commits | /30 |
 | Bonus : Implémentation du support multilingue, couverture de tests | /10 |
 | Total | /100 |
 
