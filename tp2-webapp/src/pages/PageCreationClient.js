@@ -1,11 +1,11 @@
 import React from 'react';
+import FormCreationDeClient from '../components/creationDeClient/FormCreationDeClient';
 
 function PageCreationClient() {
     return (
         <div>
-            <h1>Page Creation Client</h1>
+            <FormCreationDeClient />
         </div>
     );
 }
-
 export default PageCreationClient;
