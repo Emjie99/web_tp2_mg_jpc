@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
-function FormModifierClient({ clientId}) {
+function FormModifierClient() {
+    const { clientId } = useParams(); 
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [dateNaissance, setDateNaissance] = useState('');
@@ -13,14 +15,20 @@ function FormModifierClient({ clientId}) {
             const clientExistant = await response.json();
             setNom(clientExistant.nom);
             setPrenom(clientExistant.prenom);
-            setDateNaissance(clientExistant.dateNaissance);       
+            setDateNaissance(clientExistant.dateNaissance);
+            if (response.ok) {
+                alert('Le client a été récupéré avec succès!');
+            }
+            else {
+                alert('Une erreur est survenue lors de la récupération du client.');
+            }       
         } catch (error) {
             console.error(error);
         } 
     };
     obtenirClient();
     }, [clientId]);
-    
+
 
     const SoumettreModifierClient = async (event) => {
         event.preventDefault();
@@ -39,7 +47,6 @@ function FormModifierClient({ clientId}) {
                 },
                 body: JSON.stringify(client)
             });
-
             if (response.ok) {
                 alert('Le client a été modifié avec succès!');
             } else {
