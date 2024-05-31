@@ -1,5 +1,5 @@
 import React from 'react';
-import ListeClients from '../components/affichageClient/ListeClients.js';
+import ListeClients from '../components/affichage/ListeClients.js';
 
 function PageCreationClient() {
     return (

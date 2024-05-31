@@ -7,8 +7,9 @@ import BarreDeNavigation from './utils/BarreDeNavigation.js';
 import PageAccueil from './pages/PageAccueil.js'
 import Page404 from './pages/Page404.js';
 import PageCreationClient from './pages/PageCreationClient.js';
-import PageModifierClient from './pages/PageModifierClient.js';
+import PageGestionClient from './pages/PageGestionClient.js';
 import PageListeClients from './pages/PageListeClients.js'
+import PageGestionAdresse from './pages/PageGestionAdresse.js';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
             <Route element={<RoutePrivee />} >
               <Route path="/liste-clients" element={<PageListeClients />} />
               <Route path="/creation-client" element={<PageCreationClient />} />
-              <Route path="/modification-client/:clientId" element={<PageModifierClient />} />
+              <Route path="/gestion-client/:clientId" element={<PageGestionClient />} />
+              <Route path="/gestion-adresse/:clientId" element={< PageGestionAdresse/>} />
               {/* Inserer ici les routes privées */}
             </Route>
           </Routes>

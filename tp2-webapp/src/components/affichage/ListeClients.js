@@ -46,7 +46,7 @@ const ListeClients = () => {
                             <td>{client.nom}</td>
                             <td>{client.dateNaissance ? formatterDate(client.dateNaissance) : 'N/A'}</td>
                             <td>
-                                <NavLink to={`/modification-client/${client.clientId}`}>
+                                <NavLink to={`/gestion-client/${client.clientId}`}>
                                     <Button variant="warning" className="me-2">Modifier</Button>
                                 </NavLink>
                                 <Button variant="danger" onClick={() => handleDelete(client.clientId)}>Supprimer</Button>
