@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-function FormCreationDeClient() {
+function FormModifierClient({ clientId}) {
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [dateNaissance, setDateNaissance] = useState('');
 
-    const SoumettreCreationClient = async (event) => {
+    useEffect(() => {
+        const obtenirClient = async () => {
+        try {
+            const response = await fetch(`/api/Clients/${clientId}`);
+            const clientExistant = await response.json();
+            setNom(clientExistant.nom);
+            setPrenom(clientExistant.prenom);
+            setDateNaissance(clientExistant.dateNaissance);       
+        } catch (error) {
+            console.error(error);
+        } 
+    };
+    obtenirClient();
+    }, [clientId]);
+    
+
+    const SoumettreModifierClient = async (event) => {
         event.preventDefault();
 
         const client = {
@@ -16,8 +32,8 @@ function FormCreationDeClient() {
         };
 
         try {
-            const response = await fetch('/api/Clients', {
-                method: 'POST',
+            const response = await fetch(`/api/Clients/${clientId}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -25,23 +41,21 @@ function FormCreationDeClient() {
             });
 
             if (response.ok) {
-                alert('Le client a été créé avec succès!');
-                setNom('');
-                setPrenom('');
-                setDateNaissance('');
+                alert('Le client a été modifié avec succès!');
             } else {
-                alert('Une erreur est survenue lors de la création du client.');
+                alert('Une erreur est survenue lors de la modification du client.');
             }
 
         } catch (error) {
             console.error(error);
         } 
-    };
+    }
+
 
     return (
-        <Form onSubmit={SoumettreCreationClient}>
+        <Form onSubmit={SoumettreModifierClient}>
 
-            <h1>Creation d'un client</h1>
+            <h1>Création d'un client</h1>
 
             <Form.Group>
                 <Form.Label>Nom</Form.Label>
@@ -55,7 +69,7 @@ function FormCreationDeClient() {
             </Form.Group>
 
             <Form.Group>
-                <Form.Label>Prenom</Form.Label>
+                <Form.Label>Prénom</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Entrer le prenom"
@@ -75,10 +89,10 @@ function FormCreationDeClient() {
                 />
             </Form.Group>
 
-            <Button variant="primary" type="submit">Creer le client</Button>
+            <Button variant="primary" type="submit">Modifier le client</Button>
 
         </Form>
     );
 }
 
-export default FormCreationDeClient;
+export default FormModifierClient;
