@@ -34,6 +34,7 @@ function FormModifierClient() {
         event.preventDefault();
 
         const client = {
+            "clientId" : clientId,
             "nom" : nom,
             "prenom" : prenom,
             "dateNaissance" : dateNaissance
@@ -52,7 +53,6 @@ function FormModifierClient() {
             } else {
                 alert('Une erreur est survenue lors de la modification du client.');
             }
-
         } catch (error) {
             console.error(error);
         } 
@@ -62,7 +62,7 @@ function FormModifierClient() {
     return (
         <Form onSubmit={SoumettreModifierClient}>
 
-            <h1>Création d'un client</h1>
+            <h1>Modification d'un client</h1>
 
             <Form.Group>
                 <Form.Label>Nom</Form.Label>
