@@ -8,6 +8,7 @@ import PageAccueil from './pages/PageAccueil.js'
 import Page404 from './pages/Page404.js';
 import PageCreationClient from './pages/PageCreationClient.js';
 import PageModifierClient from './pages/PageModifierClient.js';
+import PageListeClients from './pages/PageListeClients.js'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<PageAccueil />} />
             <Route path="*" element={<Page404 />} />
             <Route element={<RoutePrivee />} >
+              <Route path="/liste-clients" element={<PageListeClients />} />
               <Route path="/creation-client" element={<PageCreationClient />} />
               <Route path="/modification-client/:clientId" element={<PageModifierClient />} />
               {/* Inserer ici les routes privées */}
