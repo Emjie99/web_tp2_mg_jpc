@@ -10,9 +10,9 @@ function FormCreationDeClient() {
         event.preventDefault();
 
         const client = {
-            nom,
-            prenom,
-            dateNaissance
+            "nom" : nom,
+            "prenom" : prenom,
+            "dateNaissance" : dateNaissance
         };
 
         try {
