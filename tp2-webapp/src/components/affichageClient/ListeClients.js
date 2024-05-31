@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { Table, Button } from 'react-bootstrap';
 
 const ListeClients = () => {
     const [clients, setClients] = useState([]);
 
     useEffect(() => {
-        const obtenirClient = async () => {
+        const obtenirClients = async () => {
         try {
             const reponse = await fetch(`/api/Clients/`);
             const clientsJSON = await reponse.json();
@@ -14,27 +15,46 @@ const ListeClients = () => {
             console.error(error);
         } 
     };
-    obtenirClient();
+    obtenirClients();
     });
 
     const handleDelete = (id) => {
         window.location.href = `/confirmation-suppression/${id}`;
     };
 
+    const formatterDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('fr-CA');
+    };
+
     return (
         <div>
             <h1>Liste des Clients</h1>
-            <ul>
-                {clients.map(client => (
-                    <li key={client.clientId}>
-                        {client.prenom} {client.nom}
-                        <br />
-                        Date de Naissance: {client.dateNaissance ? client.dateNaissance : 'N/A'}
-                        <NavLink to={`/modification-client/${client.clientId}`}><button>Modifier</button></NavLink>
-                        <button onClick={() => handleDelete(client.clientId)}>Supprimer</button>
-                    </li>
-                ))}
-            </ul>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Date de Naissance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {clients.map(client => (
+                        <tr key={client.clientId}>
+                            <td>{client.prenom}</td>
+                            <td>{client.nom}</td>
+                            <td>{client.dateNaissance ? formatterDate(client.dateNaissance) : 'N/A'}</td>
+                            <td>
+                                <NavLink to={`/modification-client/${client.clientId}`}>
+                                    <Button variant="warning" className="me-2">Modifier</Button>
+                                </NavLink>
+                                <Button variant="danger" onClick={() => handleDelete(client.clientId)}>Supprimer</Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
         </div>
     );
 };
