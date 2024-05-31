@@ -1,5 +1,5 @@
 import React from 'react';
-import FormCreationDeClient from '../components/creationDeClient/FormCreationDeClient';
+import FormCreationDeClient from '../components/FormClient/FormCreationDeClient';
 
 function PageCreationClient() {
     return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function FormModifierClient() {
     const { clientId } = useParams(); 
@@ -13,9 +14,17 @@ function FormModifierClient() {
         try {
             const response = await fetch(`/api/Clients/${clientId}`);
             const clientExistant = await response.json();
+            
+
+            if(clientExistant.dateNaissance !== null){
+
+            let dateModifier = new Date(clientExistant.dateNaissance );
+            dateModifier = dateModifier.toLocaleDateString('fr-CA');
+            setDateNaissance(dateModifier);
+            }
+
             setNom(clientExistant.nom);
             setPrenom(clientExistant.prenom);
-            setDateNaissance(clientExistant.dateNaissance);
             if (response.ok) {
                 alert('Le client a été récupéré avec succès!');
             }
@@ -90,7 +99,7 @@ function FormModifierClient() {
                 <Form.Label>Date de Naissance</Form.Label>
                 <Form.Control
                     type="date"
-                    value={dateNaissance}
+                    value={dateNaissance ?? ""}
                     onChange={(eventDate) => setDateNaissance(eventDate.target.value)}
                     required
                 />

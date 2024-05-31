@@ -1,5 +1,5 @@
 import React from 'react';
-import FormModifierClient from '../components/creationDeClient/FormModifierClient';
+import FormModifierClient from '../components/FormClient/FormModifierClient';
 
 function PageModifierClient() {
     return (
