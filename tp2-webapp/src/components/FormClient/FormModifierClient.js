@@ -25,12 +25,9 @@ function FormModifierClient() {
 
             setNom(clientExistant.nom);
             setPrenom(clientExistant.prenom);
-            if (response.ok) {
-                alert('Le client a été récupéré avec succès!');
-            }
-            else {
+            if (!response.ok) {
                 alert('Une erreur est survenue lors de la récupération du client.');
-            }       
+            }    
         } catch (error) {
             console.error(error);
         } 
