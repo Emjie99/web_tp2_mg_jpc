@@ -1,10 +1,10 @@
 import React from 'react';
-import FormModifierClient from '../components/FormClient/FormModifierClient.js';
+import FormGestionAdresse from '../components/FormAdresse/FormGestionAdresse.js';
 
 function PageGestionAdresse() {
     return (
         <div>
-            <FormModifierClient />
+            <FormGestionAdresse />
         </div>
     );
 }
