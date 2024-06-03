@@ -10,6 +10,7 @@ import PageCreationClient from './pages/PageCreationClient.js';
 import PageGestionClient from './pages/PageGestionClient.js';
 import PageListeClients from './pages/PageListeClients.js'
 import PageGestionAdresse from './pages/PageGestionAdresse.js';
+import PageSuppressionClient from './pages/PageSuppressionClient.js';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
               <Route path="/clients" element={<PageListeClients />} />
               <Route path="/creation-client" element={<PageCreationClient />} />
               <Route path="/gestion-client/:clientId" element={<PageGestionClient />} />
-              <Route path="/gestion-adresse/:clientId" element={< PageGestionAdresse />} />
+              <Route path="/gestion-adresse/:clientId" element={<PageGestionAdresse />} />
+              <Route path="/suppression-client/:clientId" element={<PageSuppressionClient />} />
               {/* Inserer ici les routes privées */}
             </Route>
           </Routes>

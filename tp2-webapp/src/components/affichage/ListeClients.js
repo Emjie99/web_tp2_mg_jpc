@@ -18,10 +18,6 @@ const ListeClients = () => {
     obtenirClients();
     });
 
-    const handleDelete = (id) => {
-        window.location.href = `/confirmation-suppression/${id}`;
-    };
-
     const formatterDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('fr-CA');
@@ -49,7 +45,9 @@ const ListeClients = () => {
                                 <NavLink to={`/gestion-client/${client.clientId}`}>
                                     <Button variant="warning" className="me-2">Modifier</Button>
                                 </NavLink>
-                                <Button variant="danger" onClick={() => handleDelete(client.clientId)}>Supprimer</Button>
+                                <NavLink to={`/suppression-client/${client.clientId}`}>
+                                    <Button variant="danger" className="me-2">Supprimer</Button>
+                                </NavLink>
                             </td>
                         </tr>
                     ))}
