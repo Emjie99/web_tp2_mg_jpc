@@ -2,7 +2,9 @@ import React, { useEffect, useState,  } from 'react';
 import { useParams } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
 
-const FormGestionAdresses = () => {
+import FormModifierAdresse from '../FormAdresse/FormModifierAdresse.js';
+
+const ListeAdresses = () => {
     const { clientId } = useParams();
     const [client, setClient] = useState({ nom: '', prenom: '', adresses: [] });
     
@@ -23,6 +25,11 @@ const FormGestionAdresses = () => {
     };
     obtenirClient();
     }, [clientId]);
+
+    const modifierAdresse = (p_adresse) => {
+        <FormModifierAdresse adresse={p_adresse} />
+    };
+
 
     return (
         <div>
@@ -54,6 +61,10 @@ const FormGestionAdresses = () => {
                                 <td>{adresse.nomMunicipalite}</td>
                                 <td>{adresse.etat}</td>
                                 <td>{adresse.pays}</td>
+                                <td>
+                                    <Button variant="warning" className="me-2" onClick={() => modifierAdresse(adresse)}>Modifier</Button>
+                                    <Button variant="danger" >Supprimer</Button>
+                                </td>
                             </tr>
                         ))}
                 </tbody>
@@ -62,4 +73,4 @@ const FormGestionAdresses = () => {
     );
 };
 
-export default FormGestionAdresses;
+export default ListeAdresses;

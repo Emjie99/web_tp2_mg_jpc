@@ -1,10 +1,10 @@
 import React from 'react';
-import FormGestionAdresse from '../components/FormAdresse/FormGestionAdresse.js';
+import ListeAdresses from '../components/affichage/ListeAdresses.js';
 
 function PageGestionAdresse() {
     return (
         <div>
-            <FormGestionAdresse />
+            <ListeAdresses />
         </div>
     );
 }

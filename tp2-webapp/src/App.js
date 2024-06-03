@@ -20,10 +20,10 @@ function App() {
             <Route path="/" element={<PageAccueil />} />
             <Route path="*" element={<Page404 />} />
             <Route element={<RoutePrivee />} >
-              <Route path="/liste-clients" element={<PageListeClients />} />
+              <Route path="/clients" element={<PageListeClients />} />
               <Route path="/creation-client" element={<PageCreationClient />} />
               <Route path="/gestion-client/:clientId" element={<PageGestionClient />} />
-              <Route path="/gestion-adresse/:clientId" element={< PageGestionAdresse/>} />
+              <Route path="/gestion-adresse/:clientId" element={< PageGestionAdresse />} />
               {/* Inserer ici les routes privées */}
             </Route>
           </Routes>
