@@ -7,8 +7,8 @@ import FormModifierAdresse from '../FormAdresse/FormModifierAdresse.js';
 const ListeAdresses = () => {
     const { clientId } = useParams();
     const [client, setClient] = useState({ nom: '', prenom: '', adresses: [] });
+    const [adresseSelectionne, setAdresseSelectionne] = useState(null);
     
-
     useEffect(() => {
         const obtenirClient = async () => {
         try {
@@ -26,17 +26,17 @@ const ListeAdresses = () => {
     obtenirClient();
     }, [clientId]);
 
-    const modifierAdresse = (p_adresse) => {
-        <FormModifierAdresse adresse={p_adresse} />
+    const modifierAdresseSelectionne = ({adresse}) => {
+        setAdresseSelectionne(adresse);
+        
     };
-
 
     return (
         <div>
             <h1>{client.nom}, {client.prenom}</h1>
+            {adresseSelectionne && <FormModifierAdresse key={adresseSelectionne.adresseId} adresseSelectionne={adresseSelectionne} />}
             <h2>Liste d'adresses</h2>
-            <Table striped bordered hover>
-                
+            <Table striped bordered hover>   
                 <thead>
                     <tr>
                         <th>Numéro Civique</th>
@@ -62,7 +62,7 @@ const ListeAdresses = () => {
                                 <td>{adresse.etat}</td>
                                 <td>{adresse.pays}</td>
                                 <td>
-                                    <Button variant="warning" className="me-2" onClick={() => modifierAdresse(adresse)}>Modifier</Button>
+                                    <Button variant="warning" className="me-2" onClick={() => modifierAdresseSelectionne({adresse})}>Modifier</Button>
                                     <Button variant="danger" >Supprimer</Button>
                                 </td>
                             </tr>
