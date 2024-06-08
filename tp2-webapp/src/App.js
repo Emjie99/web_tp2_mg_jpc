@@ -23,8 +23,8 @@ function App() {
             <Route element={<RoutePrivee />} >
               <Route path="/clients" element={<PageListeClients />} />
               <Route path="/creation-client" element={<PageCreationClient />} />
-              <Route path="/gestion-client/:clientId" element={<PageGestionClient />} />
-              <Route path="/gestion-adresse/:clientId" element={<PageGestionAdresse />} />
+              <Route path="/clients/:clientId" element={<PageGestionClient />} />
+              <Route path="/adresses/:clientId" element={<PageGestionAdresse />} />
               <Route path="/suppression-client/:clientId" element={<PageSuppressionClient />} />
               {/* Inserer ici les routes privées */}
             </Route>

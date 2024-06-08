@@ -68,7 +68,7 @@ function FormModifierClient() {
     return (
         <Form onSubmit={SoumettreModifierClient}>
 
-            <h1>Modification d'un client</h1>
+            <h1>Gestion d'un client</h1>
 
             <Form.Group>
                 <Form.Label>Nom</Form.Label>
@@ -103,8 +103,8 @@ function FormModifierClient() {
             </Form.Group>
 
             <Button variant="primary" type="submit">Modifier le client</Button>
-            <Button variant="primary" href={`/gestion-adresse/${clientId}`} className="m-3">Gestion des adresses</Button>
-            <Button variant="secondary" href="/liste-clients" className="m-3">Retour</Button>
+            <Button variant="primary" href={`/adresses/${clientId}`} className="m-3">Gestion des adresses</Button>
+            <Button variant="secondary" href="/clients" className="m-3">Retour</Button>
 
         </Form>
     );

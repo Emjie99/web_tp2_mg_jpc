@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
-const FormModifierAdresse = ({ adresseSelectionne}) => {
+
+const FormModifierAdresse = ({ adresseSelectionne, setAdresseSelectionne, clientID, miseAJourAdresses }) => {
     const [numeroCivique, setNumeroCivique] = useState(adresseSelectionne.numeroCivique);
     const [informationSupplementaire, setInformationSupplementaire] = useState(adresseSelectionne.informationSupplementaire);
     const [odonyme, setOdonyme] = useState(adresseSelectionne.odonyme);
@@ -12,12 +13,45 @@ const FormModifierAdresse = ({ adresseSelectionne}) => {
     const [pays, setPays] = useState(adresseSelectionne.pays);
 
 
+    const SoumettreModificationAdresse = async (event) => {
+        event.preventDefault();
 
+        const adresse = {
+            "adresseId" : adresseSelectionne.adresseId,
+            "numeroCivique" : numeroCivique,
+            "informationSupplementaire" : informationSupplementaire,
+            "odonyme" : odonyme,
+            "typeVoie" : typeVoie,
+            "codePostal" : codePostal,
+            "nomMunicipalite" : nomMunicipalite,
+            "etat" : etat,
+            "pays" : pays
+        };
+
+        try {
+            const response = await fetch(`/api/clients/${clientID}/Adresses/${adresseSelectionne.adresseId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(adresse)
+            });
+
+            if (response.ok) {
+                setAdresseSelectionne(null);
+                miseAJourAdresses(adresse);
+            } else {
+                alert('Une erreur est survenue lors de la modification de l adresse.');
+            }
+        } catch (error) {
+            console.error(error);
+        } 
+    }
 
     return (
         <div>
         <h2>Modification Adresse</h2>
-        <Form>
+        <Form onSubmit={SoumettreModificationAdresse}>
             <Form.Group controlId="numeroCivique">
                 <Form.Label>Numéro Civique</Form.Label>
                 <Form.Control
@@ -90,6 +124,7 @@ const FormModifierAdresse = ({ adresseSelectionne}) => {
                     required
                 />
             </Form.Group>
+            <Button variant="primary" type="submit">Modifier l'adresse</Button>
         </Form>
         </div>
     );

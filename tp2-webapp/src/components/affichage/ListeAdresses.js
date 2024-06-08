@@ -30,32 +30,26 @@ const ListeAdresses = () => {
         setAdresseSelectionne(adresse); 
     };
 
-    const enregistrerAdresseSelectionne = async () => {
-        try {
-            const response = await fetch(`/api/clients/${clientId}/Adresses/${adresseSelectionne.adresseId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(adresseSelectionne)
-            });
-            if (response.ok) {
-                alert('Le client a été modifié avec succès!');
-                setAdresseSelectionne(null);
-            }
-            else {
-                alert('Une erreur est survenue lors de la modification de l adresse.');
-            }
-        } catch (error) {
-            console.error(error);
-        }
+    const miseAJourAdresses = (adresseModifiee) => {
+        const adressesMiseAJour = client.adresses.map(adresse => 
+            adresse.adresseId === adresseModifiee.adresseId ? adresseModifiee : adresse
+        );
+        setClient({ ...client, adresses: adressesMiseAJour });
     };
-    
+
     return (
         <div>
-            <h1>{client.nom}, {client.prenom}</h1>
-            {adresseSelectionne && <FormModifierAdresse key={adresseSelectionne.adresseId} adresseSelectionne={adresseSelectionne} /> }
-            {adresseSelectionne && <Button onClick={enregistrerAdresseSelectionne}>Modifier Adresse</Button>}
+
+            <h1>Client : {client.nom}, {client.prenom}</h1>
+            {adresseSelectionne && (
+                <FormModifierAdresse
+                    key={adresseSelectionne.adresseId}                
+                    adresseSelectionne={adresseSelectionne} 
+                    setAdresseSelectionne={setAdresseSelectionne} 
+                    clientID={clientId}
+                    miseAJourAdresses={miseAJourAdresses}
+                />
+            )}
 
             <h2>Liste d'adresses</h2>
             <Table striped bordered hover>   
@@ -84,13 +78,15 @@ const ListeAdresses = () => {
                                 <td>{adresse.etat}</td>
                                 <td>{adresse.pays}</td>
                                 <td>
-                                    <Button variant="warning" className="me-2" onClick={() => modifierAdresseSelectionne({adresse})}>Modifier</Button>
+                                    <Button variant="warning" className="me-2" onClick={() => modifierAdresseSelectionne({adresse}, clientId)}>Modifier</Button>
                                     <Button variant="danger" >Supprimer</Button>
                                 </td>
                             </tr>
                         ))}
                 </tbody>
             </Table>
+            <Button variant="secondary" href={`/clients/${clientId}`} className="m-3">Retour</Button>
+            
         </div>
     );
 };
