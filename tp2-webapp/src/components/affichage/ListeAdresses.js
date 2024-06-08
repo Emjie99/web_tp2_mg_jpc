@@ -27,14 +27,36 @@ const ListeAdresses = () => {
     }, [clientId]);
 
     const modifierAdresseSelectionne = ({adresse}) => {
-        setAdresseSelectionne(adresse);
-        
+        setAdresseSelectionne(adresse); 
     };
 
+    const enregistrerAdresseSelectionne = async () => {
+        try {
+            const response = await fetch(`/api/clients/${clientId}/Adresses/${adresseSelectionne.adresseId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(adresseSelectionne)
+            });
+            if (response.ok) {
+                alert('Le client a été modifié avec succès!');
+                setAdresseSelectionne(null);
+            }
+            else {
+                alert('Une erreur est survenue lors de la modification de l adresse.');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
     return (
         <div>
             <h1>{client.nom}, {client.prenom}</h1>
-            {adresseSelectionne && <FormModifierAdresse key={adresseSelectionne.adresseId} adresseSelectionne={adresseSelectionne} />}
+            {adresseSelectionne && <FormModifierAdresse key={adresseSelectionne.adresseId} adresseSelectionne={adresseSelectionne} /> }
+            {adresseSelectionne && <Button onClick={enregistrerAdresseSelectionne}>Modifier Adresse</Button>}
+
             <h2>Liste d'adresses</h2>
             <Table striped bordered hover>   
                 <thead>
