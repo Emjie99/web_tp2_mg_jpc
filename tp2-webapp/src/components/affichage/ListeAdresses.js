@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
 
 import FormModifierAdresse from '../FormAdresse/FormModifierAdresse.js';
+import FormAjouterAdresse from '../FormAdresse/FormAjouterAdresse.js';
 
 const ListeAdresses = () => {
     const { clientId } = useParams();
     const [client, setClient] = useState({ nom: '', prenom: '', adresses: [] });
     const [adresseSelectionne, setAdresseSelectionne] = useState(null);
+    const [nouvelleAdresse, setNouvelleAdresse] = useState(null);
     
     useEffect(() => {
         const obtenirClient = async () => {
@@ -26,28 +28,49 @@ const ListeAdresses = () => {
     obtenirClient();
     }, [clientId]);
 
-    const modifierAdresseSelectionne = ({adresse}) => {
-        setAdresseSelectionne(adresse); 
+    const gererNouvelleAdresse = () => {
+        var adresse = { numeroCivique: '', informationSupplementaire: '', odonyme: '', typeVoie: '', codePostal: '', nomMunicipalite: '', etat: '', pays: '' };
+        setNouvelleAdresse(adresse);
+        setAdresseSelectionne(null);
     };
 
-    const miseAJourAdresses = (adresseModifiee) => {
-        const adressesMiseAJour = client.adresses.map(adresse => 
+    const gererModifierAdresse = (adresse) => {
+        setNouvelleAdresse(null);
+        setAdresseSelectionne(adresse);
+    };
+
+    const miseAJourAdresses = (adresseModifiee, estNouvelle = false) => {
+        let adressesMiseAJour = client.adresses;
+        if (estNouvelle) {
+            adressesMiseAJour = [...client.adresses, adresseModifiee];
+        } else {
+            adressesMiseAJour = client.adresses.map(adresse =>
             adresse.adresseId === adresseModifiee.adresseId ? adresseModifiee : adresse
-        );
-        setClient({ ...client, adresses: adressesMiseAJour });
+            );
+        }
+        setClient(client => ({ ...client, adresses: adressesMiseAJour }));
     };
 
     return (
         <div>
 
-            <h1>Client : {client.nom}, {client.prenom}</h1>
+            <h1>Client : {client.nom} {client.prenom}</h1>
+
             {adresseSelectionne && (
                 <FormModifierAdresse
-                    key={adresseSelectionne.adresseId}                
-                    adresseSelectionne={adresseSelectionne} 
-                    setAdresseSelectionne={setAdresseSelectionne} 
+                    adresseSelectionne={adresseSelectionne}
+                    setAdresseSelectionne={setAdresseSelectionne}
                     clientID={clientId}
                     miseAJourAdresses={miseAJourAdresses}
+                />
+            )}
+
+            {nouvelleAdresse && (
+                <FormAjouterAdresse
+                    clientID={clientId}
+                    adresse={nouvelleAdresse}
+                    miseAJourAdresses={miseAJourAdresses}
+                    setNouvelleAdresse={setNouvelleAdresse}
                 />
             )}
 
@@ -78,15 +101,15 @@ const ListeAdresses = () => {
                                 <td>{adresse.etat}</td>
                                 <td>{adresse.pays}</td>
                                 <td>
-                                    <Button variant="warning" className="me-2" onClick={() => modifierAdresseSelectionne({adresse}, clientId)}>Modifier</Button>
+                                    <Button variant="warning" className="me-2" onClick={() => gererModifierAdresse(adresse)}>Modifier</Button>
                                     <Button variant="danger" >Supprimer</Button>
                                 </td>
                             </tr>
                         ))}
                 </tbody>
             </Table>
+            <Button variant="primary" onClick={gererNouvelleAdresse} className="m-3">Ajouter une adresse</Button>
             <Button variant="secondary" href={`/clients/${clientId}`} className="m-3">Retour</Button>
-            
         </div>
     );
 };

@@ -1,57 +1,52 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
+const FormAjouterAdresse = ({ clientID, adresse, miseAJourAdresses, setNouvelleAdresse}) => {
+    const [numeroCivique, setNumeroCivique] = useState(adresse.numeroCivique);
+    const [informationSupplementaire, setInformationSupplementaire] = useState(adresse.informationSupplementaire);
+    const [odonyme, setOdonyme] = useState(adresse.odonyme);
+    const [typeVoie, setTypeVoie] = useState(adresse.typeVoie);
+    const [codePostal, setCodePostal] = useState(adresse.codePostal);
+    const [nomMunicipalite, setNomMunicipalite] = useState(adresse.nomMunicipalite);
+    const [etat, setEtat] = useState(adresse.etat);
+    const [pays, setPays] = useState(adresse.pays);
 
-const FormModifierAdresse = ({ adresseSelectionne, setAdresseSelectionne, clientID, miseAJourAdresses  }) => {
-    const [numeroCivique, setNumeroCivique] = useState(adresseSelectionne.numeroCivique);
-    const [informationSupplementaire, setInformationSupplementaire] = useState(adresseSelectionne.informationSupplementaire);
-    const [odonyme, setOdonyme] = useState(adresseSelectionne.odonyme);
-    const [typeVoie, setTypeVoie] = useState(adresseSelectionne.typeVoie);
-    const [codePostal, setCodePostal] = useState(adresseSelectionne.codePostal);
-    const [nomMunicipalite, setNomMunicipalite] = useState(adresseSelectionne.nomMunicipalite);
-    const [etat, setEtat] = useState(adresseSelectionne.etat);
-    const [pays, setPays] = useState(adresseSelectionne.pays);
 
-
-    const SoumettreModificationAdresse = async (event) => {
+    const ajouterNouvelleAdresse = async (event) => {
         event.preventDefault();
-
-        const adresse = {
-            "adresseId" : adresseSelectionne.adresseId,
-            "numeroCivique" : numeroCivique,
-            "informationSupplementaire" : informationSupplementaire,
-            "odonyme" : odonyme,
-            "typeVoie" : typeVoie,
-            "codePostal" : codePostal,
-            "nomMunicipalite" : nomMunicipalite,
-            "etat" : etat,
-            "pays" : pays
+        const nouvelleAdresse = {
+            numeroCivique,
+            informationSupplementaire,
+            odonyme,
+            typeVoie,
+            codePostal,
+            nomMunicipalite,
+            etat,
+            pays
         };
 
         try {
-            const response = await fetch(`/api/clients/${clientID}/Adresses/${adresseSelectionne.adresseId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(adresse)
+            const response = await fetch(`/api/clients/${clientID}/Adresses`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nouvelleAdresse)
             });
 
             if (response.ok) {
-                setAdresseSelectionne(null);
-                miseAJourAdresses(adresse);
+                miseAJourAdresses(nouvelleAdresse, true);
+                setNouvelleAdresse(null);
             } else {
-                alert('Une erreur est survenue lors de la modification de l adresse.');
+                alert('Une erreur est survenue lors de l ajout de l adresse.');
             }
         } catch (error) {
             console.error(error);
-        } 
-    }
+        }
+    };
 
     return (
         <div>
-        <h2>Modification Adresse</h2>
-        <Form onSubmit={SoumettreModificationAdresse}>
+            <h2>Ajouter une nouvelle adresse</h2>
+            <Form onSubmit={ajouterNouvelleAdresse}>
             <Form.Group controlId="numeroCivique">
                 <Form.Label>Numéro Civique</Form.Label>
                 <Form.Control
@@ -124,10 +119,10 @@ const FormModifierAdresse = ({ adresseSelectionne, setAdresseSelectionne, client
                     required
                 />
             </Form.Group>
-            <Button variant="primary" type="submit">Modifier l'adresse</Button>
-        </Form>
+                <Button variant="primary" type="submit">Ajouter</Button>
+            </Form>
         </div>
     );
 };
 
-export default FormModifierAdresse;
+export default FormAjouterAdresse;
