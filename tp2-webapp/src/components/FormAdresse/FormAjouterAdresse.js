@@ -33,8 +33,6 @@ const FormAjouterAdresse = ({ clientId, miseAJourAdresses}) => {
             });
 
             if (response.ok) {
-                console.log('Adresse ajoutée avec succès!');
-
                 miseAJourAdresses(nouvelleAdresse, 'create');
             } else {
                 alert('Une erreur est survenue lors de l ajout de l adresse.');
