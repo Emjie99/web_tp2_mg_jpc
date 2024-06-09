@@ -60,4 +60,5 @@ const FormSupressionClient = () => {
         </Form>
     )
 }
+
 export default FormSupressionClient;

@@ -4,12 +4,14 @@ import { Table, Button } from 'react-bootstrap';
 
 import FormModifierAdresse from '../FormAdresse/FormModifierAdresse.js';
 import FormAjouterAdresse from '../FormAdresse/FormAjouterAdresse.js';
+import FormSuppressionAdresse from '../FormAdresse/FormSuppressionAdresse.js';
 
 const ListeAdresses = () => {
     const { clientId } = useParams();
     const [client, setClient] = useState({ nom: '', prenom: '', adresses: [] });
     const [adresseSelectionne, setAdresseSelectionne] = useState(null);
     const [nouvelleAdresse, setNouvelleAdresse] = useState(null);
+    const [supprimerAdresse, setSupprimerAdresse] = useState(null);
     
     useEffect(() => {
         const obtenirClient = async () => {
@@ -29,27 +31,44 @@ const ListeAdresses = () => {
     }, [clientId]);
 
     const gererNouvelleAdresse = () => {
-        var adresse = { numeroCivique: '', informationSupplementaire: '', odonyme: '', typeVoie: '', codePostal: '', nomMunicipalite: '', etat: '', pays: '' };
-        setNouvelleAdresse(adresse);
+        setNouvelleAdresse({ numeroCivique: '', informationSupplementaire: '', odonyme: '', typeVoie: '', codePostal: '', nomMunicipalite: '', etat: '', pays: '' });
         setAdresseSelectionne(null);
+        setSupprimerAdresse(null);
     };
 
     const gererModifierAdresse = (adresse) => {
-        setNouvelleAdresse(null);
         setAdresseSelectionne(adresse);
+        setNouvelleAdresse(null);
+        setSupprimerAdresse(null);
     };
 
-    const miseAJourAdresses = (adresseModifiee, estNouvelle = false) => {
-        let adressesMiseAJour = client.adresses;
-        if (estNouvelle) {
-            adressesMiseAJour = [...client.adresses, adresseModifiee];
-        } else {
-            adressesMiseAJour = client.adresses.map(adresse =>
-            adresse.adresseId === adresseModifiee.adresseId ? adresseModifiee : adresse
-            );
-        }
-        setClient(client => ({ ...client, adresses: adressesMiseAJour }));
+    const gererSupprimerAdresse = (adresse) => {
+        setAdresseSelectionne(null);
+        setNouvelleAdresse(null);
+        setSupprimerAdresse(adresse);
     };
+
+        const miseAJourAdresses = (adresse, action) => {
+            let adressesMiseAJour = [...client.adresses];
+    
+            switch (action) {
+                case 'delete':
+                    adressesMiseAJour = client.adresses.filter(adresse => adresse.adresseId !== supprimerAdresse.adresseId);
+                    setSupprimerAdresse(null);
+                    break;
+                case 'create':
+                    adressesMiseAJour.push(adresse);
+                    setNouvelleAdresse(null);
+                    break;
+                case 'update':
+                    adressesMiseAJour = client.adresses.map(verifierAdresse => verifierAdresse.adresseId === adresse.adresseId ? adresse : verifierAdresse);
+                    setAdresseSelectionne(null);
+                    break;
+                default:
+            }
+    
+            setClient(client => ({ ...client, adresses: adressesMiseAJour }));
+        };
 
     return (
         <div>
@@ -58,19 +77,28 @@ const ListeAdresses = () => {
 
             {adresseSelectionne && (
                 <FormModifierAdresse
-                    adresseSelectionne={adresseSelectionne}
-                    setAdresseSelectionne={setAdresseSelectionne}
-                    clientID={clientId}
+                    key={adresseSelectionne.adresseId}
+                    clientId={clientId}
+                    adresseSelectionne={adresseSelectionne} 
                     miseAJourAdresses={miseAJourAdresses}
                 />
             )}
 
             {nouvelleAdresse && (
                 <FormAjouterAdresse
-                    clientID={clientId}
-                    adresse={nouvelleAdresse}
-                    miseAJourAdresses={miseAJourAdresses}
+                    key={nouvelleAdresse.adresseId}
+                    clientId={clientId}
                     setNouvelleAdresse={setNouvelleAdresse}
+                    miseAJourAdresses={miseAJourAdresses}
+                />
+            )}
+
+            {supprimerAdresse && (
+                <FormSuppressionAdresse
+                    key={supprimerAdresse.adresseId}    
+                    clientId={clientId}
+                    adresseId={supprimerAdresse.adresseId}
+                    miseAJourAdresses={miseAJourAdresses}
                 />
             )}
 
@@ -102,7 +130,7 @@ const ListeAdresses = () => {
                                 <td>{adresse.pays}</td>
                                 <td>
                                     <Button variant="warning" className="me-2" onClick={() => gererModifierAdresse(adresse)}>Modifier</Button>
-                                    <Button variant="danger" >Supprimer</Button>
+                                    <Button variant="danger" className="me-2" onClick={() => gererSupprimerAdresse(adresse)}>Supprimer</Button>
                                 </td>
                             </tr>
                         ))}
@@ -111,7 +139,9 @@ const ListeAdresses = () => {
             <Button variant="primary" onClick={gererNouvelleAdresse} className="m-3">Ajouter une adresse</Button>
             <Button variant="secondary" href={`/clients/${clientId}`} className="m-3">Retour</Button>
         </div>
-    );
+    );  
 };
+
+
 
 export default ListeAdresses;

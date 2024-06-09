@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 
-const FormModifierAdresse = ({ adresseSelectionne, setAdresseSelectionne, clientID, miseAJourAdresses  }) => {
+const FormModifierAdresse = ({ clientId, adresseSelectionne, miseAJourAdresses  }) => {
+    const [adresseId, setAdresseId] = useState(adresseSelectionne.adresseId);
     const [numeroCivique, setNumeroCivique] = useState(adresseSelectionne.numeroCivique);
     const [informationSupplementaire, setInformationSupplementaire] = useState(adresseSelectionne.informationSupplementaire);
     const [odonyme, setOdonyme] = useState(adresseSelectionne.odonyme);
@@ -17,7 +18,7 @@ const FormModifierAdresse = ({ adresseSelectionne, setAdresseSelectionne, client
         event.preventDefault();
 
         const adresse = {
-            "adresseId" : adresseSelectionne.adresseId,
+            "adresseId" : adresseId,
             "numeroCivique" : numeroCivique,
             "informationSupplementaire" : informationSupplementaire,
             "odonyme" : odonyme,
@@ -29,7 +30,7 @@ const FormModifierAdresse = ({ adresseSelectionne, setAdresseSelectionne, client
         };
 
         try {
-            const response = await fetch(`/api/clients/${clientID}/Adresses/${adresseSelectionne.adresseId}`, {
+            const response = await fetch(`/api/clients/${clientId}/Adresses/${adresseId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -38,8 +39,7 @@ const FormModifierAdresse = ({ adresseSelectionne, setAdresseSelectionne, client
             });
 
             if (response.ok) {
-                setAdresseSelectionne(null);
-                miseAJourAdresses(adresse);
+                miseAJourAdresses(adresse, 'update');
             } else {
                 alert('Une erreur est survenue lors de la modification de l adresse.');
             }

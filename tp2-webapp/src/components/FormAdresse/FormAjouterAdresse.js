@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-const FormAjouterAdresse = ({ clientID, adresse, miseAJourAdresses, setNouvelleAdresse}) => {
-    const [numeroCivique, setNumeroCivique] = useState(adresse.numeroCivique);
-    const [informationSupplementaire, setInformationSupplementaire] = useState(adresse.informationSupplementaire);
-    const [odonyme, setOdonyme] = useState(adresse.odonyme);
-    const [typeVoie, setTypeVoie] = useState(adresse.typeVoie);
-    const [codePostal, setCodePostal] = useState(adresse.codePostal);
-    const [nomMunicipalite, setNomMunicipalite] = useState(adresse.nomMunicipalite);
-    const [etat, setEtat] = useState(adresse.etat);
-    const [pays, setPays] = useState(adresse.pays);
-
+const FormAjouterAdresse = ({ clientId, miseAJourAdresses}) => {
+    const [numeroCivique, setNumeroCivique] = useState('');
+    const [informationSupplementaire, setInformationSupplementaire] = useState('');
+    const [odonyme, setOdonyme] = useState('');
+    const [typeVoie, setTypeVoie] = useState('');
+    const [codePostal, setCodePostal] = useState('');
+    const [nomMunicipalite, setNomMunicipalite] = useState('');
+    const [etat, setEtat] = useState('');
+    const [pays, setPays] = useState('');
 
     const ajouterNouvelleAdresse = async (event) => {
         event.preventDefault();
+
         const nouvelleAdresse = {
             numeroCivique,
             informationSupplementaire,
@@ -26,15 +26,16 @@ const FormAjouterAdresse = ({ clientID, adresse, miseAJourAdresses, setNouvelleA
         };
 
         try {
-            const response = await fetch(`/api/clients/${clientID}/Adresses`, {
+            const response = await fetch(`/api/clients/${clientId}/Adresses`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(nouvelleAdresse)
             });
 
             if (response.ok) {
-                miseAJourAdresses(nouvelleAdresse, true);
-                setNouvelleAdresse(null);
+                console.log('Adresse ajoutée avec succès!');
+
+                miseAJourAdresses(nouvelleAdresse, 'create');
             } else {
                 alert('Une erreur est survenue lors de l ajout de l adresse.');
             }
