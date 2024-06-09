@@ -11,6 +11,9 @@ import PageGestionClient from './pages/PageGestionClient.js';
 import PageListeClients from './pages/PageListeClients.js'
 import PageGestionAdresse from './pages/PageGestionAdresse.js';
 import PageSuppressionClient from './pages/PageSuppressionClient.js';
+import FormAjouterAdresse from './components/FormAdresse/FormAjouterAdresse';
+import FormModifierAdresse from './components/FormAdresse/FormModifierAdresse';
+import FormSuppressionAdresse from './components/FormAdresse/FormSuppressionAdresse';
 
 function App() {
   return (
@@ -24,9 +27,11 @@ function App() {
               <Route path="/clients" element={<PageListeClients />} />
               <Route path="/creation-client" element={<PageCreationClient />} />
               <Route path="/clients/:clientId" element={<PageGestionClient />} />
-              <Route path="/adresses/:clientId" element={<PageGestionAdresse />} />
+              <Route path="/clients/:clientId/Adresses" element={<PageGestionAdresse />} />
               <Route path="/suppression-client/:clientId" element={<PageSuppressionClient />} />
-              {/* Inserer ici les routes privées */}
+              <Route path="/clients/:clientId/Adresses/ajouter" element={<FormAjouterAdresse />} />
+              <Route path="/clients/:clientId/Adresses/:adresseId/modifier" element={<FormModifierAdresse />} />
+              <Route path="/clients/:clientId/Adresses/:adresseId/supprimer" element={<FormSuppressionAdresse />} />
             </Route>
           </Routes>
       </BrowserRouter>

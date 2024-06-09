@@ -103,7 +103,7 @@ function FormModifierClient() {
             </Form.Group>
 
             <Button variant="primary" type="submit">Modifier le client</Button>
-            <Button variant="primary" href={`/adresses/${clientId}`} className="m-3">Gestion des adresses</Button>
+            <Button variant="primary" href={`/clients/${clientId}/Adresses`} className="m-3">Gestion des adresses</Button>
             <Button variant="secondary" href="/clients" className="m-3">Retour</Button>
 
         </Form>

@@ -43,9 +43,9 @@ const ListeAdresses = () => {
     };
 
     const gererSupprimerAdresse = (adresse) => {
+        setSupprimerAdresse(adresse);
         setAdresseSelectionne(null);
         setNouvelleAdresse(null);
-        setSupprimerAdresse(adresse);
     };
 
         const miseAJourAdresses = (adresse, action) => {
@@ -66,8 +66,10 @@ const ListeAdresses = () => {
                     break;
                 default:
             }
-    
-            setClient(client => ({ ...client, adresses: adressesMiseAJour }));
+
+            client.adresses = adressesMiseAJour;
+            let clientUpdate = {...client}
+            setClient(clientUpdate);
         };
 
     return (
@@ -141,7 +143,5 @@ const ListeAdresses = () => {
         </div>
     );  
 };
-
-
 
 export default ListeAdresses;
