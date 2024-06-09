@@ -13,8 +13,7 @@ const ListeAdresses = () => {
     const [nouvelleAdresse, setNouvelleAdresse] = useState(null);
     const [supprimerAdresse, setSupprimerAdresse] = useState(null);
     
-    useEffect(() => {
-        const obtenirClient = async () => {
+    const obtenirClient = async () => {
         try {
             const response = await fetch(`/api/Clients/${clientId}`);
             const clientExistant = await response.json();
@@ -27,8 +26,10 @@ const ListeAdresses = () => {
             console.error(error);
         } 
     };
-    obtenirClient();
-    }, [clientId]);
+
+    useEffect(() => {
+        obtenirClient();
+    }, [clientId, obtenirClient]);
 
     const gererNouvelleAdresse = () => {
         setNouvelleAdresse({ numeroCivique: '', informationSupplementaire: '', odonyme: '', typeVoie: '', codePostal: '', nomMunicipalite: '', etat: '', pays: '' });
@@ -48,20 +49,20 @@ const ListeAdresses = () => {
         setNouvelleAdresse(null);
     };
 
-        const miseAJourAdresses = (adresse, action) => {
+        const miseAJourAdresses = (action) => {
             let adressesMiseAJour = [...client.adresses];
     
             switch (action) {
                 case 'delete':
-                    adressesMiseAJour = client.adresses.filter(adresse => adresse.adresseId !== supprimerAdresse.adresseId);
+                    obtenirClient();
                     setSupprimerAdresse(null);
                     break;
                 case 'create':
-                    adressesMiseAJour.push(adresse);
+                    obtenirClient();
                     setNouvelleAdresse(null);
                     break;
                 case 'update':
-                    adressesMiseAJour = client.adresses.map(verifierAdresse => verifierAdresse.adresseId === adresse.adresseId ? adresse : verifierAdresse);
+                    obtenirClient();
                     setAdresseSelectionne(null);
                     break;
                 default:

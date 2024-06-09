@@ -15,8 +15,9 @@ const FormSupressionAdresse = ({clientId, adresseId, miseAJourAdresses}) => {
                 }
             });
             if (response.ok) {
-                miseAJourAdresses(null, 'delete');
+                miseAJourAdresses('delete');
             } else {
+                console.log(adresseId);
                 alert('Une erreur est survenue lors de la suppression du client.');
             }
         } catch (err) {

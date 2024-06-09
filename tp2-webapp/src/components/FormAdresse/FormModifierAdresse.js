@@ -38,7 +38,7 @@ const FormModifierAdresse = ({ clientId, adresseSelectionne, miseAJourAdresses  
             });
 
             if (response.ok) {
-                miseAJourAdresses(adresse, 'update');
+                miseAJourAdresses('update');
             } else {
                 alert('Une erreur est survenue lors de la modification de l adresse.');
             }
