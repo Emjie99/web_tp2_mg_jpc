@@ -3,7 +3,6 @@ import { Form, Button } from 'react-bootstrap';
 
 
 const FormModifierAdresse = ({ clientId, adresseSelectionne, miseAJourAdresses  }) => {
-    const [adresseId, setAdresseId] = useState(adresseSelectionne.adresseId);
     const [numeroCivique, setNumeroCivique] = useState(adresseSelectionne.numeroCivique);
     const [informationSupplementaire, setInformationSupplementaire] = useState(adresseSelectionne.informationSupplementaire);
     const [odonyme, setOdonyme] = useState(adresseSelectionne.odonyme);
@@ -18,7 +17,7 @@ const FormModifierAdresse = ({ clientId, adresseSelectionne, miseAJourAdresses  
         event.preventDefault();
 
         const adresse = {
-            "adresseId" : adresseId,
+            "adresseId" : adresseSelectionne.adresseId,
             "numeroCivique" : numeroCivique,
             "informationSupplementaire" : informationSupplementaire,
             "odonyme" : odonyme,
@@ -30,7 +29,7 @@ const FormModifierAdresse = ({ clientId, adresseSelectionne, miseAJourAdresses  
         };
 
         try {
-            const response = await fetch(`/api/clients/${clientId}/Adresses/${adresseId}`, {
+            const response = await fetch(`/api/clients/${clientId}/Adresses/${adresseSelectionne.adresseId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
