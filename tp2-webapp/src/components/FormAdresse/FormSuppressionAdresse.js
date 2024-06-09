@@ -33,7 +33,7 @@ const FormSupressionAdresse = ({clientId, adresseId, miseAJourAdresses}) => {
             <h3>Êtes-vous sûr(e) de vouloir supprimer l'adresse?</h3>
 
             <Button variant="danger" type="submit" className='m-3'>Supprimer l'adresse</Button>
-            <Button variant="primary" href={`/clients/${clientId}/Adresses`} className="m-3">Retour à la liste</Button>
+            <Button variant="primary" onClick={() => miseAJourAdresses('cancel')} className="m-3">Retour à la liste</Button>
 
         </Form>
     )
