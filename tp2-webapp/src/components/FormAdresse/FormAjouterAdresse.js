@@ -118,7 +118,8 @@ const FormAjouterAdresse = ({ clientId, miseAJourAdresses}) => {
                     required
                 />
             </Form.Group>
-                <Button variant="primary" type="submit">Ajouter</Button>
+                <Button variant="primary" type="submit" className="m-3">Ajouter</Button>
+                <Button variant="danger" onClick={() => miseAJourAdresses('cancel')} className="m-3">Annuler</Button>
             </Form>
         </div>
     );

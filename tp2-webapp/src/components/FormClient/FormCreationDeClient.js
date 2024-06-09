@@ -75,7 +75,7 @@ function FormCreationDeClient() {
                 />
             </Form.Group>
 
-            <Button variant="primary" type="submit">Creer le client</Button>
+            <Button variant="primary" type="submit" className="mt-3">Creer le client</Button>
 
         </Form>
     );
