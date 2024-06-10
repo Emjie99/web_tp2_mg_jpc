@@ -1,10 +1,9 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 
-const FiltresClients = ({ setFiltres, options, appliquerFiltres }) => {
-    const traitementChangementCheckbox = (e) => {
+const FiltresClients = ({ setFiltres, options }) => {
+    const traiterChangementCheckbox = (e) => {
         const { name, value, checked } = e.target;
-        
         setFiltres(filtresPrecedents => {
             const nouveauxFiltres = { ...filtresPrecedents };
             if (checked) {
@@ -13,19 +12,24 @@ const FiltresClients = ({ setFiltres, options, appliquerFiltres }) => {
                 }
                 nouveauxFiltres[name].push(value);
             } else {
-                nouveauxFiltres[name] = nouveauxFiltres[name].filter(val => val !== value);
+                nouveauxFiltres[name] = nouveauxFiltres[name].filter(valeur => valeur !== value);
             }
-            appliquerFiltres(nouveauxFiltres);
+            setFiltres(nouveauxFiltres);
             return nouveauxFiltres;
         });
     };
 
+    const etiquettes = {
+        nomMunicipalite: 'Municipalité',
+        etat: 'État',
+        pays: 'Pays'
+    };
+
     return (
-        <Form className='m-3'>
-            <h2>Filtres</h2>
+        <Form className='m-3 p-2 bg-light rounded'>
             {Object.keys(options).map(categorie => (
-                <div key={categorie}>
-                    <h5>{categorie}</h5>
+                <div key={categorie} className='pb-3'>
+                    <h5>{etiquettes[categorie]}</h5>
                     {options[categorie].map(option => (
                         <Form.Check
                             key={option}
@@ -33,7 +37,7 @@ const FiltresClients = ({ setFiltres, options, appliquerFiltres }) => {
                             label={option}
                             name={categorie}
                             value={option}
-                            onChange={traitementChangementCheckbox}
+                            onChange={traiterChangementCheckbox}
                         />
                     ))}
                 </div>

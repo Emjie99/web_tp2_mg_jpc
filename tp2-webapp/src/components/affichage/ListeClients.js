@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Table, Button, Container, Row, Col } from 'react-bootstrap';
+
 import FiltresClients from './FiltresClients';
 
 const ListeClients = () => {
@@ -23,36 +24,36 @@ const ListeClients = () => {
     }, []);
 
     const appliquerFiltres = (nouveauxFiltres) => {
-        let clientsTempo = [...clients];
+        let clientsFiltresAppliques = [...clients];
         Object.keys(nouveauxFiltres).forEach(filtre => {
             if (nouveauxFiltres[filtre].length > 0) {
-                clientsTempo = clientsTempo.filter(client =>
+                clientsFiltresAppliques = clientsFiltresAppliques.filter(client =>
                     client.adresses?.some(adresse =>
                         nouveauxFiltres[filtre].includes(adresse[filtre])
                     )
                 );
             }
         });
-        setClientsFiltres(clientsTempo);
+        setClientsFiltres(clientsFiltresAppliques);
     };
 
-    const traiterOrdre = (key) => {
+    const appliquerTri = (paramCle) => {
         setTri(triPrecedent => ({
-            cle: key,
-            ascendant: triPrecedent.cle === key ? !triPrecedent.ascendant : true
+            cle: paramCle,
+            ascendant: triPrecedent.cle === paramCle ? !triPrecedent.ascendant : true
         }));
-        const clientsOrdonnes = [...clientsFiltres].sort((a, b) => {
-            if (a[key] < b[key]) {
+        const clientsTries = [...clientsFiltres].sort((a, b) => {
+            if (a[paramCle] < b[paramCle]) {
                 return tri.ascendant ? -1 : 1;
             }
-            if (a[key] > b[key]) {
+            if (a[paramCle] > b[paramCle]) {
                 return tri.ascendant ? 1 : -1;
             }
             else {
                 return 0;
             }
         });
-        setClientsFiltres(clientsOrdonnes);
+        setClientsFiltres(clientsTries);
     };
 
     const formatterDate = (dateString) => {
@@ -64,7 +65,7 @@ const ListeClients = () => {
         if (tri.cle !== key) {
             return null;
         }
-        return tri.ascendant ? ' ▲' : ' ▼';
+        return tri.ascendant ? ' ▼' : ' ▲';
     };
 
     const optionsFiltres = {
@@ -84,13 +85,13 @@ const ListeClients = () => {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th onClick={() => traiterOrdre('prenom')}>
+                                <th onClick={() => appliquerTri('prenom')}>
                                     Prénom {placerIconeTri('prenom')}
                                 </th>
-                                <th onClick={() => traiterOrdre('nom')}>
+                                <th onClick={() => appliquerTri('nom')}>
                                     Nom {placerIconeTri('nom')}
                                 </th>
-                                <th onClick={() => traiterOrdre('dateNaissance')}>
+                                <th onClick={() => appliquerTri('dateNaissance')}>
                                     Date de Naissance {placerIconeTri('dateNaissance')}
                                 </th>
                                 <th>Actions</th>
