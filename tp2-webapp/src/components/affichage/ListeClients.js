@@ -49,9 +49,23 @@ const ListeClients = () => {
             if (a[paramCle] > b[paramCle]) {
                 return tri.ascendant ? 1 : -1;
             }
-            else {
-                return 0;
+
+            if (paramCle === 'nom') {
+                if (a.prenom < b.prenom) {
+                    return tri.ascendant ? -1 : 1;
+                }
+                if (a.prenom > b.prenom) {
+                    return tri.ascendant ? 1 : -1;
+                }
+            } else if (paramCle === 'prenom') {
+                if (a.nom < b.nom) {
+                    return tri.ascendant ? -1 : 1;
+                }
+                if (a.nom > b.nom) {
+                    return tri.ascendant ? 1 : -1;
+                }
             }
+            return 0;
         });
         setClientsFiltres(clientsTries);
     };
@@ -78,7 +92,7 @@ const ListeClients = () => {
         <Container>
             <Row>
                 <Col md={3}>
-                    <FiltresClients setFiltres={appliquerFiltres} options={optionsFiltres} />
+                    <FiltresClients setFiltres={appliquerFiltres} options={optionsFiltres} clients={clients} />
                 </Col>
                 <Col md={9}>
                     <h1>Liste des Clients</h1>
@@ -91,8 +105,8 @@ const ListeClients = () => {
                                 <th onClick={() => appliquerTri('nom')}>
                                     Nom {placerIconeTri('nom')}
                                 </th>
-                                <th onClick={() => appliquerTri('dateNaissance')}>
-                                    Date de Naissance {placerIconeTri('dateNaissance')}
+                                <th>
+                                    Date de Naissance
                                 </th>
                                 <th>Actions</th>
                             </tr>

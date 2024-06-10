@@ -10,7 +10,7 @@ const PageAccueil = () => {
                 TP2 - Jean-Philippe Cyr et Maxime Gaulin
             </h2>
             <p>
-                Bienvenue à notre page d'accueil.
+                Bienvenue au système de gestion de clients. Si ce n'est pas fait, veuillez vous authentifier pour accèder à la liste de clients. Si vous êtes déjà authentifié, vous pouvez accéder aux services par l'onglet "Menu" dans la barre de navigation.
             </p>
         </div>
     )

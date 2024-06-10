@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 
-const FiltresClients = ({ setFiltres, options }) => {
+const FiltresClients = ({ setFiltres, options, clients }) => {
     const traiterChangementCheckbox = (e) => {
         const { name, value, checked } = e.target;
         setFiltres(filtresPrecedents => {
@@ -25,6 +25,14 @@ const FiltresClients = ({ setFiltres, options }) => {
         pays: 'Pays'
     };
 
+    const compterClients = (categorie, option) => {
+        return clients.filter(client =>
+            client.adresses?.some(adresse =>
+                adresse[categorie] === option
+            )
+        ).length;
+    };
+
     return (
         <Form className='m-3 p-2 bg-light rounded'>
             {Object.keys(options).map(categorie => (
@@ -34,7 +42,7 @@ const FiltresClients = ({ setFiltres, options }) => {
                         <Form.Check
                             key={option}
                             type="checkbox"
-                            label={option}
+                            label={`${option} (${compterClients(categorie, option)})`}
                             name={categorie}
                             value={option}
                             onChange={traiterChangementCheckbox}
